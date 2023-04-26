@@ -21,4 +21,4 @@ Once you have installed SPECTRALib with `pip install spectralib`, please test th
 Now you have confirmed the installation is functional, run the example scripts:
 
 # Examples
-[Animation showing RFI creation process](/images/rfi.gif)
+![Animation showing RFI creation process](/images/rfi.gif)
