@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import random
 
 from spectralib.rfi import generate_rfi, add_wandering_baseline, sampleloguniform
-from spectralib.filterbank import create_filterbank
+from spectralib.filterbank import create_filterbank, plot_and_save
 
 
 def main():
@@ -179,6 +179,16 @@ def main():
     plt.ylabel("Frequency (bins)")
     plt.tight_layout()
     plt.show()
+
+    # Call the function for each dataset
+    plot_and_save(data0, "0. Original Data", "../images/original_data.png")
+    plot_and_save(data1, "1. Wandering Baseband", "../images/wandering_baseband.png")
+    plot_and_save(data1a, "1a. 50Hz Mains Interference", "../images/mains_interference.png")
+    plot_and_save(data2, "2. Add Persistent Narrowband RFI", "../images/persistent_narrowband_RFI.png")
+    plot_and_save(data3, "3. Add Repeating Narrowband RFI", "../images/repeating_narrowband_RFI.png")
+    plot_and_save(data4, "4. Add Impulsive Narrowband RFI", "../images/impulsive_narrowband_RFI.png")
+    plot_and_save(data5, "5. Add Repeating Broadband RFI", "../images/repeating_broadband_RFI.png")
+    plot_and_save(data6, "6. Add Impulsive Broadband RFI", "../images/impulsive_broadband_RFI.png")
 
 
 

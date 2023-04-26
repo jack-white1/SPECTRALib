@@ -4,6 +4,17 @@ import matplotlib.pyplot as plt
 import os
 from spectralib.frb import calculate_dispersion_offsets
 
+def plot_and_save(data, title, file_name):
+    fig, ax = plt.subplots(figsize=(8, 6))
+    im = ax.imshow(data, aspect="auto", cmap="plasma", origin="lower")
+    ax.set_title(title)
+    plt.colorbar(im, ax=ax)
+    ax.set_ylim(ax.get_ylim()[::-1])  # Flip the y-axis
+    plt.xlabel("Time (bins)")
+    plt.ylabel("Frequency (bins)")
+    plt.tight_layout()
+    plt.savefig(file_name, dpi=300)  # Save as a high-quality PNG image
+    plt.close(fig)  # Close the figure to free up memory
 
 def dedisperse_filterbank_to_timeseries(data, DM, tsamp, foff, fch1):
     dedispersed_data = dedisperse_filterbank(data, DM, tsamp, foff, fch1)
