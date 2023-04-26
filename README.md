@@ -19,3 +19,6 @@ ___Paper that you can cite___
 Once you have installed SPECTRALib with `pip install spectralib`, please test the installation with the built-in tests:
 
 Now you have confirmed the installation is functional, run the example scripts:
+
+# Examples
+[Animation showing RFI creation process](../images/rfi.gif)
