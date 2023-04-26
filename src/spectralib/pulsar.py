@@ -1,12 +1,13 @@
 from spectralib.frb import generate_frb, calculate_dispersion_offsets
 import numpy as np
 
-def apparent_pulse_period(binary_params, p_rest, time):
+def apparent_pulse_period(binary_params, time):
     # heavily influenced by sigproc's fake, Duncan Lorimer, and Mike Keith's implementation in C
     G = 6.67430e-11
     M_SUN = 1.9885e30
     SPEED_OF_LIGHT = 299792458
 
+    rest_period = binary_params["rest_period"]
     inclination = binary_params["inclination"]
     orbital_period = binary_params["orbital_period"]
     start_phase = binary_params["start_phase"]
@@ -31,14 +32,13 @@ def apparent_pulse_period(binary_params, p_rest, time):
 
     true_anomaly = 2 * np.arctan(np.sqrt((1 + eccentricity) / (1 - eccentricity)) * np.tan(eccentric_anomaly / 2))
     velocity = omega_b * asini / np.sqrt(1 - eccentricity**2) * (np.cos(omega + true_anomaly) + eccentricity * np.cos(omega))
-    p_apparent = p_rest * (1 + velocity / SPEED_OF_LIGHT)
+    p_apparent = rest_period * (1 + velocity / SPEED_OF_LIGHT)
 
     return p_apparent
 
-def generate_binary_pulsar(data, DM, tsamp, foff, fch1, p_rest, binary_params, **frb_params):
+def generate_binary_pulsar(data, DM, tsamp, foff, fch1, binary_params, **frb_params):
     nchans, nsamp = data.shape
-    pulse_duration = frb_params.get("frb_duration", 100)
-
+    
     # Use calculate_dispersion_offsets from frb.py to calculate the maximum offset, and subtract it from 0 to get the start index
     # this ensures the pulsar signal is present in the entire data array
     offsets = calculate_dispersion_offsets(DM, fch1, foff, nchans, tsamp)
@@ -47,8 +47,8 @@ def generate_binary_pulsar(data, DM, tsamp, foff, fch1, p_rest, binary_params, *
     pulse = 0
     pulse_start_time = start_index*tsamp
     while pulse_start_time < nsamp*tsamp:
-        pulse_start_time = start_index*tsamp + pulse * p_rest
-        app_pulse_period = apparent_pulse_period(binary_params, p_rest, pulse_start_time)
+        pulse_start_time = start_index*tsamp + pulse * binary_params["rest_period"]
+        app_pulse_period = apparent_pulse_period(binary_params, pulse_start_time)
         print("At time : ",pulse_start_time," apparent pulse period: ", app_pulse_period)
         frb_start_time = pulse_start_time + app_pulse_period
         frb_start_index = int(frb_start_time / tsamp)
@@ -58,7 +58,7 @@ def generate_binary_pulsar(data, DM, tsamp, foff, fch1, p_rest, binary_params, *
 
     return data
 
-def generate_solitary_pulsar(data, DM, tsamp, foff, fch1, p_rest, **frb_params):
+def generate_solitary_pulsar(data, DM, tsamp, foff, fch1, rest_period, **frb_params):
     nchans, nsamp = data.shape
     pulse_duration = frb_params.get("frb_duration", 100)
 
@@ -70,7 +70,7 @@ def generate_solitary_pulsar(data, DM, tsamp, foff, fch1, p_rest, **frb_params):
     pulse = 0
     pulse_start_time = start_index*tsamp
     while pulse_start_time < nsamp*tsamp:
-        pulse_start_time = start_index*tsamp + pulse * p_rest
+        pulse_start_time = start_index*tsamp + pulse * rest_period
         frb_start_index = int(pulse_start_time / tsamp)
 
         data = generate_frb(data, DM, tsamp, foff, fch1, frb_start_index=frb_start_index, frb_duration=pulse_duration, **frb_params)

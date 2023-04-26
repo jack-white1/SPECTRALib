@@ -2,14 +2,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 
-from spectralib.rfi import generate_rfi, add_wandering_baseline, sampleloguniform
-from spectralib.filterbank import create_filterbank
-from spectralib.frb import generate_frb
+from spectralib import *
 
 
 def main():
-    tobs = 10 # observation time in seconds
-    tsamp = 0.001 # sample time in seconds
+    tobs = 10 #observation time in seconds
+    tsamp = 0.001 #sample time in seconds
 
     metadata = {
     "source_name": "spectralib_FRB",
@@ -35,24 +33,21 @@ def main():
     fch1 = metadata["fch1"]
     foff = metadata["foff"]
     data = np.random.normal(0,noisesigma,size=(nchans, nsamp))+127
-    data0 = data.copy()
 
     print("Observation time of " + str(nsamp*tsamp) + " seconds")
 
     # add random wandering baseline
     data = add_wandering_baseline(data, wanderingbaselineamplitude=30, wanderingbaselineperiod=1000)
-    data1 = data.copy()
 
     # add 50hz interference
     nsamp = data.shape[1]
     sampling_rate = 1/tsamp
     interferencefrequency = 50
     t = np.arange(nsamp) / sampling_rate
-    sinusoidal_wave = np.sin(2 * np.pi * interferencefrequency * t) * 10
+    sinusoidal_wave = np.sin(2 * np.pi * interferencefrequency * t)
 
     data = add_wandering_baseline(data, custom_baseline=sinusoidal_wave)
-    data1a = data.copy()
-
+    
     # add some narrowband RFI that is persistent
     persistent_narrowband_amount = 5
     for i in range(persistent_narrowband_amount):
@@ -64,7 +59,6 @@ def main():
         }
         data = generate_rfi(data, **kwargs)
 
-    data2 = data.copy()
 
     # and some narrowband RFI that repeats
     repeating_narrowband_amount = 10
@@ -79,7 +73,6 @@ def main():
         }
         data = generate_rfi(data, **kwargs)
 
-    data3 = data.copy()
 
     # and some narrowband RFI that is impulsive
     impulsive_narrowband_amount = 10
@@ -93,7 +86,6 @@ def main():
         }
         data = generate_rfi(data, **kwargs)
 
-    data4 = data.copy()
 
     # and some broadband RFI that repeats
     broadband_repeating_amount = 3
@@ -108,7 +100,6 @@ def main():
         }
         data = generate_rfi(data, **kwargs)
 
-    data5 = data.copy()
 
     broadband_impulsive_amount = 10
     for i in range(broadband_impulsive_amount):
@@ -121,17 +112,26 @@ def main():
         }
         data = generate_rfi(data, **kwargs)
 
-
-    # add an FRB
-
-    data6 = data.copy()
-
     DM = 1000  # Dispersion measure of the FRB
-    frb_start_index = 100  # Start index of the FRB
-    frb_duration = 50  # Duration of the FRB
-    frb_amplitude = 200  # Amplitude of the FRB
 
-        # Create a realistic frequency profile (Gaussian profile)
+    # Binary pulsar parameters
+    binary_params = {
+        "inclination": np.radians(45),
+        "orbital_period": 200,
+        "start_phase": 0,
+        "companion_mass": 1.4,
+        "pulsar_mass": 1.4,
+        "eccentricity": 0.1,
+        "omega": np.radians(90),
+    }
+
+    # Rest pulse period of the pulsar
+    p_rest = 1.0  # seconds
+
+    frb_duration = 50  # Duration of the FRB
+    frb_amplitude = 50  # Amplitude of the FRB
+
+    # Create a realistic frequency profile (Gaussian profile)
     def gaussian(x, mu, sigma):
         return np.exp(-0.5 * ((x - mu) / sigma) ** 2)
 
@@ -144,38 +144,21 @@ def main():
     time_sigma = frb_duration // 8
     time_profile = gaussian(np.arange(frb_duration), time_mu, time_sigma)
 
+    # FRB parameters
     frb_params = {
-        'frb_start_index': frb_start_index,
         'frb_duration': frb_duration,
         'frb_amplitude': frb_amplitude,
-        'time_profile': time_profile,  # Gaussian time profile
-        'freq_profile': freq_profile  # Gaussian frequency profile
+        'time_profile': time_profile,
+        'freq_profile': freq_profile,
     }
 
-    # Generate the FRB
-    data = generate_frb(data, DM, metadata['tsamp'], metadata['foff'], metadata['fch1'], **frb_params)
+    # Inject the binary pulsar signature
+    data = generate_binary_pulsar(data, DM, metadata['tsamp'], metadata['foff'], metadata['fch1'], p_rest, binary_params, **frb_params)
 
-    # Create the filterbank file
-    output_filename = "RFIoutput_with_FRB.fil"
-    create_filterbank(data, output_filename, metadata)
+    filename = "RFIoutput.fil"
+    create_filterbank(data, filename, metadata)
+    show_filterbank(filename)
 
-    # Plot the original data and the data with the injected FRB
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 6), sharex=True, sharey=True)
-
-    im1 = ax1.imshow(data6, aspect="auto", cmap="plasma", origin="lower")
-    ax1.set_title("Original Data")
-    plt.colorbar(im1, ax=ax1)
-    ax1.set_ylim(ax1.get_ylim()[::-1])  # Flip the y-axis
-
-    im2 = ax2.imshow(data, aspect="auto", cmap="plasma", origin="lower")
-    ax2.set_title("Data with Injected FRB")
-    plt.colorbar(im2, ax=ax2)
-    #ax2.set_ylim(ax2.get_ylim()[::-1])  # Flip the y-axis
-
-    plt.xlabel("Time (bins)")
-    plt.ylabel("Frequency Channel")
-    plt.tight_layout()
-    plt.show()
 
 
 

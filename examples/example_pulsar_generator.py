@@ -48,10 +48,10 @@ def main():
     sampling_rate = 1/tsamp
     interferencefrequency = 50
     t = np.arange(nsamp) / sampling_rate
-    sinusoidal_wave = np.sin(2 * np.pi * interferencefrequency * t)
+    sinusoidal_wave = np.sin(2 * np.pi * interferencefrequency * t) * 10
 
-    data1a = add_wandering_baseline(data, custom_baseline=sinusoidal_wave)
-    
+    data = add_wandering_baseline(data, custom_baseline=sinusoidal_wave)
+    data1a = data.copy()
     # add some narrowband RFI that is persistent
     persistent_narrowband_amount = 5
     for i in range(persistent_narrowband_amount):
@@ -129,17 +129,18 @@ def main():
 
     # Binary pulsar parameters
     binary_params = {
-        "inclination": np.radians(45),
-        "orbital_period": 200,
-        "start_phase": 0,
-        "companion_mass": 1.4,
-        "pulsar_mass": 1.4,
-        "eccentricity": 0.1,
-        "omega": np.radians(90),
+        "rest_period":  1.0,                 # Rest period of the pulsar (seconds)
+        "inclination": np.radians(45),  # Inclination angle of the binary system (radians)
+        "orbital_period": 200,          # Orbital period of the binary system (seconds)
+        "start_phase": 0,               # Starting phase of the pulsar (radians)
+        "companion_mass": 1.4,          # Mass of the companion (solar masses)
+        "pulsar_mass": 1.4,             # Mass of the pulsar (solar masses)
+        "eccentricity": 0.1,            # Eccentricity of the binary system
+        "omega": np.radians(90),        # Longitude of periastron (radians)
     }
 
-    # Rest pulse period of the pulsar
-    p_rest = 1.0  # seconds
+    
+      # seconds
 
     frb_duration = 50  # Duration of the FRB
     frb_amplitude = 50  # Amplitude of the FRB

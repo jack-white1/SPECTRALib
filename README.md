@@ -17,6 +17,15 @@ ___Paper that you can cite___
 
 `pip install spectralib`
 
+# RFI Example
+![Animation showing RFI creation process](/images/rfi.gif)
+
+# FRB Example
+![Example of FRB created with spectralib](/images/frb.png)
+
+# Pulsar Example
+![Example of pulsar created with spectralib](/images/pulsar.png)
+
 # Usage
 Once you have installed SPECTRALib with `pip install spectralib`, you can import the library into your python code with `import spectralib`.
 
@@ -28,13 +37,5 @@ To test the library, download and run the examples by cloning this git repo.
  - `python example_frb.py` or `python3 example_frb.py`
  - `python example_pulsar.py` or `python3 example_pulsar.py`
 
-
-
-# RFI Example
-![Animation showing RFI creation process](/images/rfi.gif)
-
-# FRB Example
-![Example of FRB created with spectralib](/images/frb.png)
-
-# Pulsar Example
-![Example of pulsar created with spectralib](/images/pulsar.png)
+ # Documentation
+ 

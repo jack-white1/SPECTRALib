@@ -47,9 +47,10 @@ def main():
     sampling_rate = 1/tsamp
     interferencefrequency = 50
     t = np.arange(nsamp) / sampling_rate
-    sinusoidal_wave = np.sin(2 * np.pi * interferencefrequency * t)
+    sinusoidal_wave = np.sin(2 * np.pi * interferencefrequency * t) * 10
 
-    data1a = add_wandering_baseline(data, custom_baseline=sinusoidal_wave)
+    data = add_wandering_baseline(data, custom_baseline=sinusoidal_wave)
+    data1a = data.copy()
     
     # add some narrowband RFI that is persistent
     persistent_narrowband_amount = 5
