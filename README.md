@@ -1,8 +1,6 @@
 # Welcome to SPECTRALib!
 
-SPECTRALib is a 100% python library with minimal dependencies (`numpy` and `matplotlib`) for 
- - handling filterbank files
- - generating the radio signature of synthetic transients such as pulsars and FRBs, mixed with RFI and other effects.
+SPECTRALib is a 100% python library with minimal dependencies (`numpy` and `matplotlib`) for handling filterbank files and generating synthetic transients such as pulsars and FRBs, mixed with RFI and other effects.
 
 ### Feel free to use the code however you wish:
  - You can `import spectralib` and use the functions in your code
