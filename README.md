@@ -6,7 +6,7 @@ SPECTRALib stands for Synthetic Pulsar Emission, Contamination and Transients Ra
 
 ### Feel free to use the code however you wish:
  - You can `import spectralib` and use the functions in your code
- - You can modify the [**example scripts**](https://github.com/jack-white1/SPECTRALib_examples) to generate files that fit your requirement
+ - You can modify the [**example scripts**](https://github.com/jack-white1/SPECTRALib/examples) to generate files that fit your requirement
  - The functions should be modular enough to **copy and paste** into your own code
 
 ### Citation
@@ -18,9 +18,17 @@ ___Paper that you can cite___
 `pip install spectralib`
 
 # Usage
-Once you have installed SPECTRALib with `pip install spectralib`, please test the installation with the built-in tests:
+Once you have installed SPECTRALib with `pip install spectralib`, you can import the library into your python code with `import spectralib`.
 
-Now you have confirmed the installation is functional, run the example scripts:
+To test the library, download and run the examples by cloning this git repo.
+
+ - `git clone https://github.com/jack-white1/SPECTRALib`
+ - `cd SPECTRALib/examples`
+ - `python example_rfi.py` or `python3 example_rfi.py`
+ - `python example_frb.py` or `python3 example_frb.py`
+ - `python example_pulsar.py` or `python3 example_pulsar.py`
+
+
 
 # RFI Example
 ![Animation showing RFI creation process](/images/rfi.gif)
