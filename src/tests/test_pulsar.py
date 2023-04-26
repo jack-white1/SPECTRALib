@@ -26,8 +26,8 @@ class TestPulsar(unittest.TestCase):
         tsamp = 0.000064
         foff = -0.09765625
         fch1 = 1500
-        p_rest = 100
         binary_params = {
+            'rest_period': 100,
             'inclination': 0.5,
             'orbital_period': 3600,
             'start_phase': 0,
@@ -41,7 +41,7 @@ class TestPulsar(unittest.TestCase):
             'frb_amplitude': 50
         }
 
-        data_with_pulsar = generate_binary_pulsar(data, DM, tsamp, foff, fch1, p_rest, binary_params, **frb_params)
+        data_with_pulsar = generate_binary_pulsar(data, DM, tsamp, foff, fch1, binary_params, **frb_params)
 
         self.assertIsNotNone(data_with_pulsar)
         self.assertEqual(data_with_pulsar.shape, data.shape)
@@ -52,12 +52,12 @@ class TestPulsar(unittest.TestCase):
         tsamp = 0.000064
         foff = -0.09765625
         fch1 = 1500
-        p_rest = 100
+        rest_period = 100
         frb_params = {
             'frb_amplitude': 50
         }
 
-        data_with_pulsar = generate_solitary_pulsar(data, DM, tsamp, foff, fch1, p_rest, **frb_params)
+        data_with_pulsar = generate_solitary_pulsar(data, DM, tsamp, foff, fch1, rest_period, **frb_params)
 
         self.assertIsNotNone(data_with_pulsar)
         self.assertEqual(data_with_pulsar.shape, data.shape)

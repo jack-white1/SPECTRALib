@@ -2,7 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 
-from spectralib import *
+from spectralib.rfi import *
+from spectralib.filterbank import *
+from spectralib.frb import *
+from spectralib.pulsar import *
 
 
 def main():
