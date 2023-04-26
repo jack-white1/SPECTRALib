@@ -7,6 +7,7 @@ class TestPulsar(unittest.TestCase):
 
     def test_apparent_pulse_period(self):
         binary_params = {
+            'rest_period': 1,
             'inclination': 0.5,
             'orbital_period': 3600,
             'start_phase': 0,
@@ -15,9 +16,8 @@ class TestPulsar(unittest.TestCase):
             'eccentricity': 0.1,
             'omega': 0.3
         }
-        p_rest = 1
         time = 1000
-        p_apparent = apparent_pulse_period(binary_params, p_rest, time)
+        p_apparent = apparent_pulse_period(binary_params, time)
         self.assertIsNotNone(p_apparent)
 
     def test_generate_binary_pulsar(self):
