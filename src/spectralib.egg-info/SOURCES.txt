@@ -3,7 +3,6 @@ setup.py
 src/spectralib/__init__.py
 src/spectralib/filterbank.py
 src/spectralib/frb.py
-src/spectralib/main.py
 src/spectralib/pulsar.py
 src/spectralib/rfi.py
 src/spectralib.egg-info/PKG-INFO

@@ -8,8 +8,8 @@ from spectralib.pulsar import generate_binary_pulsar
 
 
 def main():
-    tobs = 600 # observation time in seconds
-    tsamp = 0.000128 # sample time in seconds
+    tobs = 10 # observation time in seconds
+    tsamp = 0.001 # sample time in seconds
 
     metadata = {
     "source_name": "spectralib_FRB",
@@ -141,13 +141,31 @@ def main():
     # Rest pulse period of the pulsar
     p_rest = 1.0  # seconds
 
+    frb_duration = 50  # Duration of the FRB
+    frb_amplitude = 50  # Amplitude of the FRB
+
+    # Create a realistic frequency profile (Gaussian profile)
+    def gaussian(x, mu, sigma):
+        return np.exp(-0.5 * ((x - mu) / sigma) ** 2)
+
+    freq_mu = nchans // 2
+    freq_sigma = nchans // 8
+    freq_profile = gaussian(np.arange(nchans), freq_mu, freq_sigma)
+
+    # Create a realistic time profile (Gaussian profile)
+    time_mu = frb_duration // 2
+    time_sigma = frb_duration // 8
+    time_profile = gaussian(np.arange(frb_duration), time_mu, time_sigma)
+
     # FRB parameters
     frb_params = {
-        'frb_duration': 100,
-        'frb_amplitude': 200,
-        'time_profile': np.random.normal(1, 0.1, 100),
-        'freq_profile': np.random.normal(1, 0.1, metadata['nchans']),
+        'frb_duration': frb_duration,
+        'frb_amplitude': frb_amplitude,
+        'time_profile': time_profile,
+        'freq_profile': freq_profile,
     }
+
+
 
     # Inject the binary pulsar signature
     data = generate_binary_pulsar(data, DM, metadata['tsamp'], metadata['foff'], metadata['fch1'], p_rest, binary_params, **frb_params)

@@ -22,5 +22,11 @@ Once you have installed SPECTRALib with `pip install spectralib`, please test th
 
 Now you have confirmed the installation is functional, run the example scripts:
 
-# Examples
+# RFI Example
 ![Animation showing RFI creation process](/images/rfi.gif)
+
+# FRB Example
+![Example of FRB created with spectralib](/images/frb.png)
+
+# Pulsar Example
+![Example of pulsar created with spectralib](/images/pulsar.png)
