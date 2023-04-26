@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: spectralib
+Version: 0.0.1
+Summary: A short description of your package
+Home-page: https://github.com/jack-white1/spectralib
+Author: Your Name
+Author-email: your.email@example.com
+License: UNKNOWN
+Description: A longer description of your package
+Platform: UNKNOWN
+Classifier: Development Status :: 1 - Planning
+Description-Content-Type: text/markdown
