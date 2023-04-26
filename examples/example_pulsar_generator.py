@@ -169,7 +169,7 @@ def main():
 
 
     # Inject the binary pulsar signature
-    data = generate_binary_pulsar(data, DM, metadata['tsamp'], metadata['foff'], metadata['fch1'], p_rest, binary_params, **frb_params)
+    data = generate_binary_pulsar(data, DM, metadata['tsamp'], metadata['foff'], metadata['fch1'], binary_params, **frb_params)
 
     # Create the filterbank file
     output_filename = "RFIoutput_with_binary_pulsar.fil"
