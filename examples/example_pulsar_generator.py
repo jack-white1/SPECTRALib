@@ -125,7 +125,7 @@ def main():
 
     data6 = data.copy()
 
-    DM = 10000  # Dispersion measure of the FRB
+    DM = 1000  # Dispersion measure of the FRB
 
     # Binary pulsar parameters
     binary_params = {

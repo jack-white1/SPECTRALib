@@ -125,7 +125,7 @@ def main():
 
     data6 = data.copy()
 
-    DM = 10000  # Dispersion measure of the FRB
+    DM = 1000  # Dispersion measure of the FRB
     frb_start_index = 100  # Start index of the FRB
     frb_duration = 50  # Duration of the FRB
     frb_amplitude = 200  # Amplitude of the FRB
