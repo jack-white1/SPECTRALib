@@ -6,7 +6,7 @@ SPECTRALib stands for Synthetic Pulsar Emission, Contamination and Transients Ra
 
 ### Feel free to use the code however you wish:
  - You can `import spectralib` and use the functions in your code
- - You can modify the **example scripts** to generate files that fit your requirement
+ - You can modify the [**example scripts**](https://github.com/jack-white1/SPECTRALib_examples) to generate files that fit your requirement
  - The functions should be modular enough to **copy and paste** into your own code
 
 ### Citation
