@@ -2,8 +2,9 @@ from setuptools import setup, find_packages
 
 setup(
     name="spectralib",
-    version="0.0.1",
-    packages=find_packages(),
+    version="0.0.4",
+    packages=find_packages(where="src"),
+    package_dir={"": "src"},
     classifiers=[
         "Development Status :: 1 - Planning",
     ],

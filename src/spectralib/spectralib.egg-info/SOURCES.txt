@@ -1,0 +1,6 @@
+README.md
+setup.py
+src/spectralib/spectralib.egg-info/PKG-INFO
+src/spectralib/spectralib.egg-info/SOURCES.txt
+src/spectralib/spectralib.egg-info/dependency_links.txt
+src/spectralib/spectralib.egg-info/top_level.txt
