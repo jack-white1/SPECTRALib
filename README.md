@@ -39,3 +39,16 @@ To test the library, download and run the examples by cloning this git repo.
 
  # Documentation
  
+ ## Filterbank Functions
+
+ 
+ ## RFI Functions
+ The RFI modelling in spectralib is designed to be as modular and parametric as possible.
+
+ ## FRB Functions
+To simulate the smearing seen at higher DMs and lower frequencies, there is an optional function to simulate FRBs at a higher resolution than the time and frequency quantization of the filterbank.
+
+ ## Pulsar Functions
+ Conceptually, spectralib models either solitary or binary pulsars as a series of FRBs. 
+ 
+

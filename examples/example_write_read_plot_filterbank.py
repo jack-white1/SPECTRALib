@@ -25,13 +25,12 @@ def main():
     "tsamp": tsamp,
     "nifs": 1,
     "nbeams": 1,
-    "ibeam": 1,
-    "nsamples": round(tobs/tsamp)
+    "ibeam": 1
     }
 
     noisesigma = 18 #standard deviation of noise, value copied from some ASKAP data
     nchans = metadata["nchans"]
-    nsamp = metadata["nsamples"]
+    nsamp = round(tobs/tsamp)
     tsamp = metadata["tsamp"]
     fch1 = metadata["fch1"]
     foff = metadata["foff"]
@@ -119,6 +118,7 @@ def main():
 
     # Binary pulsar parameters
     binary_params = {
+        "rest_period": 1.0,
         "inclination": np.radians(45),
         "orbital_period": 200,
         "start_phase": 0,
@@ -128,8 +128,6 @@ def main():
         "omega": np.radians(90),
     }
 
-    # Rest pulse period of the pulsar
-    p_rest = 1.0  # seconds
 
     frb_duration = 50  # Duration of the FRB
     frb_amplitude = 50  # Amplitude of the FRB
@@ -156,11 +154,13 @@ def main():
     }
 
     # Inject the binary pulsar signature
-    data = generate_binary_pulsar(data, DM, metadata['tsamp'], metadata['foff'], metadata['fch1'], p_rest, binary_params, **frb_params)
+    data = generate_binary_pulsar(data, DM, metadata['tsamp'], metadata['foff'], metadata['fch1'], binary_params, **frb_params)
 
     filename = "RFIoutput.fil"
     create_filterbank(data, filename, metadata)
-    show_filterbank(filename)
+
+    data = read_filterbank(filename)
+    show_filterbank(data)
 
 
 

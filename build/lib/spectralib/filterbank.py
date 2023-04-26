@@ -21,6 +21,7 @@ def dedisperse_filterbank_to_timeseries(data, DM, tsamp, foff, fch1):
     timeseries = np.sum(dedispersed_data, axis=0)
     return timeseries
 
+
 def dedisperse_filterbank(data, DM, tsamp, foff, fch1):
     nchans, nsamp = data.shape
     dedispersed_data = np.zeros_like(data)
@@ -142,7 +143,6 @@ def read_filterbank_header(file_path):
             totalbytes += nbytes
 
             if param_name == "HEADER_END":
-                totalbytes += nbytes
                 break
 
             if param_name in ["rawdatafile", "source_name"]:

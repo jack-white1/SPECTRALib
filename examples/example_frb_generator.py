@@ -24,13 +24,12 @@ def main():
     "tsamp": tsamp,
     "nifs": 1,
     "nbeams": 1,
-    "ibeam": 1,
-    "nsamples": round(tobs/tsamp)
+    "ibeam": 1
     }
 
     noisesigma = 18 #standard deviation of noise, value copied from some ASKAP data
     nchans = metadata["nchans"]
-    nsamp = metadata["nsamples"]
+    nsamp = round(tobs/tsamp)
     tsamp = metadata["tsamp"]
     fch1 = metadata["fch1"]
     foff = metadata["foff"]
