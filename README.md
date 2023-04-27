@@ -49,6 +49,6 @@ To test the library, download and run the examples by cloning this git repo.
 To simulate the smearing seen at higher DMs and lower frequencies, there is an optional function to simulate FRBs at a higher resolution than the time and frequency quantization of the filterbank.
 
  ## Pulsar Functions
- Conceptually, spectralib models either solitary or binary pulsars as a series of FRBs. 
+ Conceptually, spectralib models either solitary or binary pulsars (with `generate_solitary_pulsar()` and `generate_binary_pulsar()`) as a series of pulses, using the same function (`generate_pulse()`) as is used to generate FRBs. 
  
 

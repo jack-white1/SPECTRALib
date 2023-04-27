@@ -5,7 +5,7 @@ import timeit
 import os
 from spectralib.filterbank import create_filterbank
 from spectralib.pulsar import generate_binary_pulsar
-from spectralib.frb import generate_frb
+from spectralib.frb import generate_pulse
 from spectralib.rfi import generate_rfi
 
 def benchmark_filterbank():
@@ -82,15 +82,15 @@ def benchmark_pulsar():
         p_rest = 1.0  # seconds
 
         # FRB parameters
-        frb_params = {
-            'frb_duration': 100,
-            'frb_amplitude': 200,
+        pulse_params = {
+            'pulse_duration': 100,
+            'pulse_amplitude': 200,
             'time_profile': np.random.normal(1, 0.1, 100),
             'freq_profile': np.random.normal(1, 0.1, metadata['nchans']),
         }
 
         # Inject the binary pulsar signature
-        data = generate_binary_pulsar(data, DM, metadata['tsamp'], metadata['foff'], metadata['fch1'], p_rest, binary_params, **frb_params)
+        data = generate_binary_pulsar(data, DM, metadata['tsamp'], metadata['foff'], metadata['fch1'], p_rest, binary_params, **pulse_params)
 
         # Create the filterbank file
         output_filename = "RFIoutput_with_binary_pulsar.fil"
@@ -99,10 +99,10 @@ def benchmark_pulsar():
     return timeit.timeit(run_generate_pulsar, number=10)
 
 def benchmark_frb():
-    def run_generate_frb():
-        generate_frb()
+    def run_generate_pulse():
+        generate_pulse()
 
-    return timeit.timeit(run_generate_frb, number=10)
+    return timeit.timeit(run_generate_pulse, number=10)
 
 def benchmark_rfi():
     def run_generate_rfi():

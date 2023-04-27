@@ -129,8 +129,8 @@ def main():
     }
 
 
-    frb_duration = 50  # Duration of the FRB
-    frb_amplitude = 50  # Amplitude of the FRB
+    pulse_duration = 50  # Duration of the FRB
+    pulse_amplitude = 50  # Amplitude of the FRB
 
     # Create a realistic frequency profile (Gaussian profile)
     def gaussian(x, mu, sigma):
@@ -141,20 +141,20 @@ def main():
     freq_profile = gaussian(np.arange(nchans), freq_mu, freq_sigma)
 
     # Create a realistic time profile (Gaussian profile)
-    time_mu = frb_duration // 2
-    time_sigma = frb_duration // 8
-    time_profile = gaussian(np.arange(frb_duration), time_mu, time_sigma)
+    time_mu = pulse_duration // 2
+    time_sigma = pulse_duration // 8
+    time_profile = gaussian(np.arange(pulse_duration), time_mu, time_sigma)
 
     # FRB parameters
-    frb_params = {
-        'frb_duration': frb_duration,
-        'frb_amplitude': frb_amplitude,
+    pulse_params = {
+        'pulse_duration': pulse_duration,
+        'pulse_amplitude': pulse_amplitude,
         'time_profile': time_profile,
         'freq_profile': freq_profile,
     }
 
     # Inject the binary pulsar signature
-    data = generate_binary_pulsar(data, DM, metadata['tsamp'], metadata['foff'], metadata['fch1'], binary_params, **frb_params)
+    data = generate_binary_pulsar(data, DM, metadata['tsamp'], metadata['foff'], metadata['fch1'], binary_params, **pulse_params)
     filename = "RFIoutput.fil"
     create_filterbank(data, filename, metadata)
 
@@ -167,7 +167,7 @@ def main():
     ax2.imshow(dataafter, aspect='auto')
     ax2.set_title('After')
     plt.show()
-    
+
 
 
 

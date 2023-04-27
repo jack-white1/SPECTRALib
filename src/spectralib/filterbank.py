@@ -50,6 +50,7 @@ def create_filterbank(data,output_filename, metadata):
         
         # Write metadata key-value pairs
         for key, value in metadata.items():
+            print("Writing key: '", key, "' value: '", value, "' to file.")
             # Encode and write the length of the metadata key
             f.write(struct.pack('<I', len(key)))
             # Encode and write the metadata key as bytes
@@ -77,7 +78,9 @@ def create_filterbank(data,output_filename, metadata):
         # Write the signal data
         # tofile() writes the array to a binary file in a machine-specific format
         data = data.astype(np.uint8)
-        #data = data.transpose()
+        data = data.transpose()
+        #data = np.fliplr(data)
+        #data = np.flipud(data)
         data.tofile(f)
 
 def read_filterbank_data(file_path, header_params, header_len):
@@ -102,8 +105,9 @@ def read_filterbank_data(file_path, header_params, header_len):
     nsamples = len(data) // (nchans * sample_size)
 
     # Reshape the data into a 2D NumPy array
-    data_2d = data.reshape((nchans, nsamples))
-    #data_2d = data_2d.transpose()
+    data_2d = data.reshape((nsamples, nchans))
+    data_2d = data_2d.transpose()
+    #data_2d = np.flipud(data_2d)
 
     return data_2d
 
@@ -139,6 +143,7 @@ def read_filterbank_header(file_path):
 
         while True:
             param_name, nbytes = get_string(file)
+            print("param_name: ", param_name, " nbytes: ", nbytes)
             totalbytes += nbytes
 
             if param_name == "HEADER_END":
@@ -174,7 +179,7 @@ def show_filterbank(data, title='Filterbank'):
     :param title: Optional title for the plot.
     """
     plt.figure()
-    plt.imshow(data, aspect='auto', origin='lower', cmap='viridis')
+    plt.imshow(data, aspect='auto', cmap='viridis')
     plt.colorbar()
     plt.title(title)
     plt.xlabel('Frequency Channels')

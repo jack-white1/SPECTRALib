@@ -17,7 +17,7 @@ def main():
     "telescope_id": 0,
     "data_type": 0,
     "fch1": 1500.0,
-    "foff": -0.5,
+    "foff": -1.0,   # must be a float
     "nchans": 500,
     "nbits": 8,
     "tstart": 55555.0,
@@ -124,25 +124,25 @@ def main():
 
     data6 = data.copy()
 
-    DM = 1000  # Dispersion measure of the FRB
+    DM = 5000  # Dispersion measure of the FRB
 
     # Binary pulsar parameters
     binary_params = {
         "rest_period":  1.0,                 # Rest period of the pulsar (seconds)
         "inclination": np.radians(45),  # Inclination angle of the binary system (radians)
-        "orbital_period": 200,          # Orbital period of the binary system (seconds)
+        "orbital_period": 7200,          # Orbital period of the binary system (seconds)
         "start_phase": 0,               # Starting phase of the pulsar (radians)
-        "companion_mass": 1.4,          # Mass of the companion (solar masses)
+        "companion_mass": 5,          # Mass of the companion (solar masses)
         "pulsar_mass": 1.4,             # Mass of the pulsar (solar masses)
-        "eccentricity": 0.1,            # Eccentricity of the binary system
-        "omega": np.radians(90),        # Longitude of periastron (radians)
+        "eccentricity": 0.0,            # Eccentricity of the binary system
+        "omega": np.radians(0),        # Longitude of periastron (radians)
     }
 
     
       # seconds
 
-    frb_duration = 50  # Duration of the FRB
-    frb_amplitude = 50  # Amplitude of the FRB
+    pulse_duration = 100  # Duration of the FRB
+    pulse_amplitude = 100  # Amplitude of the FRB
 
     # Create a realistic frequency profile (Gaussian profile)
     def gaussian(x, mu, sigma):
@@ -150,17 +150,18 @@ def main():
 
     freq_mu = nchans // 2
     freq_sigma = nchans // 8
-    freq_profile = gaussian(np.arange(nchans), freq_mu, freq_sigma)
+    freq_profile = np.ones(nchans)
+    #freq_profile = gaussian(np.arange(nchans), freq_mu, freq_sigma)
 
     # Create a realistic time profile (Gaussian profile)
-    time_mu = frb_duration // 2
-    time_sigma = frb_duration // 8
-    time_profile = gaussian(np.arange(frb_duration), time_mu, time_sigma)
+    time_mu = pulse_duration // 2
+    time_sigma = pulse_duration // 8
+    time_profile = gaussian(np.arange(pulse_duration), time_mu, time_sigma)
 
     # FRB parameters
-    frb_params = {
-        'frb_duration': frb_duration,
-        'frb_amplitude': frb_amplitude,
+    pulse_params = {
+        'pulse_duration': pulse_duration,
+        'pulse_amplitude': pulse_amplitude,
         'time_profile': time_profile,
         'freq_profile': freq_profile,
     }
@@ -168,7 +169,7 @@ def main():
 
 
     # Inject the binary pulsar signature
-    data = generate_binary_pulsar(data, DM, metadata['tsamp'], metadata['foff'], metadata['fch1'], binary_params, **frb_params)
+    data = generate_binary_pulsar(data, DM, metadata['tsamp'], metadata['foff'], metadata['fch1'], binary_params, **pulse_params)
 
     # Create the filterbank file
     output_filename = "RFIoutput_with_binary_pulsar.fil"
@@ -184,17 +185,17 @@ def main():
     ax1, ax2, ax3, ax4 = axes
 
     # Plot the data
-    im1 = ax1.imshow(data6, aspect="auto", cmap="plasma", origin="lower")
+    im1 = ax1.imshow(data6, aspect="auto", cmap="plasma")
     ax1.set_title("Original Data")
-    ax1.set_ylim(ax1.get_ylim()[::-1])  # Flip the y-axis
+    #ax1.set_ylim(ax1.get_ylim()[::-1])  # Flip the y-axis
 
-    im2 = ax2.imshow(data, aspect="auto", cmap="plasma", origin="lower")
+    im2 = ax2.imshow(data, aspect="auto", cmap="plasma")
     ax2.set_title("Data with Injected Binary Pulsar")
-    ax2.set_ylim(ax2.get_ylim()[::-1])  # Flip the y-axis
+    #ax2.set_ylim(ax2.get_ylim()[::-1])  # Flip the y-axis
 
-    im3 = ax3.imshow(dedispersed_data, aspect="auto", cmap="plasma", origin="lower")
+    im3 = ax3.imshow(dedispersed_data, aspect="auto", cmap="plasma")
     ax3.set_title("Dedispersed Data")
-    ax3.set_ylim(ax3.get_ylim()[::-1])  # Flip the y-axis
+    #ax3.set_ylim(ax3.get_ylim()[::-1])  # Flip the y-axis
 
     im4 = ax4.plot(dedispersed_timeseries)
     ax4.set_title("Dedispersed Time Series")

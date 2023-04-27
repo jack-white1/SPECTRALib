@@ -4,7 +4,7 @@ import random
 
 from spectralib.rfi import generate_rfi, add_wandering_baseline, sampleloguniform
 from spectralib.filterbank import create_filterbank
-from spectralib.frb import generate_frb
+from spectralib.frb import generate_pulse
 
 
 def main():
@@ -126,9 +126,9 @@ def main():
     data6 = data.copy()
 
     DM = 1000  # Dispersion measure of the FRB
-    frb_start_index = 100  # Start index of the FRB
-    frb_duration = 50  # Duration of the FRB
-    frb_amplitude = 200  # Amplitude of the FRB
+    pulse_start_index = 100  # Start index of the FRB
+    pulse_duration = 50  # Duration of the FRB
+    pulse_amplitude = 200  # Amplitude of the FRB
 
         # Create a realistic frequency profile (Gaussian profile)
     def gaussian(x, mu, sigma):
@@ -139,20 +139,20 @@ def main():
     freq_profile = gaussian(np.arange(nchans), freq_mu, freq_sigma)
 
     # Create a realistic time profile (Gaussian profile)
-    time_mu = frb_duration // 2
-    time_sigma = frb_duration // 8
-    time_profile = gaussian(np.arange(frb_duration), time_mu, time_sigma)
+    time_mu = pulse_duration // 2
+    time_sigma = pulse_duration // 8
+    time_profile = gaussian(np.arange(pulse_duration), time_mu, time_sigma)
 
-    frb_params = {
-        'frb_start_index': frb_start_index,
-        'frb_duration': frb_duration,
-        'frb_amplitude': frb_amplitude,
+    pulse_params = {
+        'pulse_start_index': pulse_start_index,
+        'pulse_duration': pulse_duration,
+        'pulse_amplitude': pulse_amplitude,
         'time_profile': time_profile,  # Gaussian time profile
         'freq_profile': freq_profile  # Gaussian frequency profile
     }
 
     # Generate the FRB
-    data = generate_frb(data, DM, metadata['tsamp'], metadata['foff'], metadata['fch1'], **frb_params)
+    data = generate_pulse(data, DM, metadata['tsamp'], metadata['foff'], metadata['fch1'], **pulse_params)
 
     # Create the filterbank file
     output_filename = "RFIoutput_with_FRB.fil"

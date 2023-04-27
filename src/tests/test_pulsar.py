@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from spectralib.frb import generate_frb, calculate_dispersion_offsets
+from spectralib.frb import generate_pulse, calculate_dispersion_offsets
 from spectralib.pulsar import generate_binary_pulsar, generate_solitary_pulsar, apparent_pulse_period
 
 class TestPulsar(unittest.TestCase):
@@ -36,12 +36,12 @@ class TestPulsar(unittest.TestCase):
             'eccentricity': 0.1,
             'omega': 0.3
         }
-        frb_params = {
-            'frb_duration': 10,
-            'frb_amplitude': 50
+        pulse_params = {
+            'pulse_duration': 10,
+            'pulse_amplitude': 50
         }
 
-        data_with_pulsar = generate_binary_pulsar(data, DM, tsamp, foff, fch1, binary_params, **frb_params)
+        data_with_pulsar = generate_binary_pulsar(data, DM, tsamp, foff, fch1, binary_params, **pulse_params)
 
         self.assertIsNotNone(data_with_pulsar)
         self.assertEqual(data_with_pulsar.shape, data.shape)
@@ -53,11 +53,11 @@ class TestPulsar(unittest.TestCase):
         foff = -0.09765625
         fch1 = 1500
         rest_period = 100
-        frb_params = {
-            'frb_amplitude': 50
+        pulse_params = {
+            'pulse_amplitude': 50
         }
 
-        data_with_pulsar = generate_solitary_pulsar(data, DM, tsamp, foff, fch1, rest_period, **frb_params)
+        data_with_pulsar = generate_solitary_pulsar(data, DM, tsamp, foff, fch1, rest_period, **pulse_params)
 
         self.assertIsNotNone(data_with_pulsar)
         self.assertEqual(data_with_pulsar.shape, data.shape)

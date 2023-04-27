@@ -1,4 +1,4 @@
-from spectralib.frb import generate_frb, calculate_dispersion_offsets
+from spectralib.frb import generate_pulse, calculate_dispersion_offsets
 import numpy as np
 
 def apparent_pulse_period(binary_params, time):
@@ -36,7 +36,7 @@ def apparent_pulse_period(binary_params, time):
 
     return p_apparent
 
-def generate_binary_pulsar(data, DM, tsamp, foff, fch1, binary_params, **frb_params):
+def generate_binary_pulsar(data, DM, tsamp, foff, fch1, binary_params, **pulse_params):
     nchans, nsamp = data.shape
     
     # Use calculate_dispersion_offsets from frb.py to calculate the maximum offset, and subtract it from 0 to get the start index
@@ -51,16 +51,16 @@ def generate_binary_pulsar(data, DM, tsamp, foff, fch1, binary_params, **frb_par
         app_pulse_period = apparent_pulse_period(binary_params, pulse_start_time)
         print("At time : ",pulse_start_time," apparent pulse period: ", app_pulse_period)
         frb_start_time = pulse_start_time + app_pulse_period
-        frb_start_index = int(frb_start_time / tsamp)
+        pulse_start_index = int(frb_start_time / tsamp)
 
-        data = generate_frb(data, DM, tsamp, foff, fch1, frb_start_index=frb_start_index, **frb_params)
+        data = generate_pulse(data, DM, tsamp, foff, fch1, pulse_start_index=pulse_start_index, **pulse_params)
         pulse+=1
 
     return data
 
-def generate_solitary_pulsar(data, DM, tsamp, foff, fch1, rest_period, **frb_params):
+def generate_solitary_pulsar(data, DM, tsamp, foff, fch1, rest_period, **pulse_params):
     nchans, nsamp = data.shape
-    pulse_duration = frb_params.get("frb_duration", 100)
+    pulse_duration = pulse_params.get("pulse_duration", 100)
 
 
     # Use calculate_dispersion_offsets from frb.py to calculate the maximum offset, and subtract it from 0 to get the start index
@@ -71,9 +71,9 @@ def generate_solitary_pulsar(data, DM, tsamp, foff, fch1, rest_period, **frb_par
     pulse_start_time = start_index*tsamp
     while pulse_start_time < nsamp*tsamp:
         pulse_start_time = start_index*tsamp + pulse * rest_period
-        frb_start_index = int(pulse_start_time / tsamp)
+        pulse_start_index = int(pulse_start_time / tsamp)
 
-        data = generate_frb(data, DM, tsamp, foff, fch1, frb_start_index=frb_start_index, frb_duration=pulse_duration, **frb_params)
+        data = generate_pulse(data, DM, tsamp, foff, fch1, pulse_start_index=pulse_start_index, pulse_duration=pulse_duration, **pulse_params)
         pulse+=1
 
     return data
