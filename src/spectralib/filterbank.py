@@ -102,7 +102,7 @@ def read_filterbank_data(file_path, header_params, header_len):
     nsamples = len(data) // (nchans * sample_size)
 
     # Reshape the data into a 2D NumPy array
-    data_2d = data.reshape((nsamples, nchans))
+    data_2d = data.reshape((nchans, nsamples))
     #data_2d = data_2d.transpose()
 
     return data_2d

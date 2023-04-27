@@ -155,12 +155,19 @@ def main():
 
     # Inject the binary pulsar signature
     data = generate_binary_pulsar(data, DM, metadata['tsamp'], metadata['foff'], metadata['fch1'], binary_params, **frb_params)
-
     filename = "RFIoutput.fil"
     create_filterbank(data, filename, metadata)
 
-    data = read_filterbank(filename)
-    show_filterbank(data)
+    dataafter, header = read_filterbank(filename)
+
+    #plot data, dataafter in same window in adjacent subplots
+    fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
+    ax1.imshow(data, aspect='auto')
+    ax1.set_title('Before')
+    ax2.imshow(dataafter, aspect='auto')
+    ax2.set_title('After')
+    plt.show()
+    
 
 
 
