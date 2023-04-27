@@ -182,6 +182,6 @@ def show_filterbank(data, title='Filterbank'):
     plt.imshow(data, aspect='auto', cmap='viridis')
     plt.colorbar()
     plt.title(title)
-    plt.xlabel('Frequency Channels')
-    plt.ylabel('Time Samples')
+    plt.xlabel('Time Samples')
+    plt.ylabel('Frequency Channels')
     plt.show()

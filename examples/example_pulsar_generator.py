@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import random
 
 from spectralib.rfi import generate_rfi, add_wandering_baseline, sampleloguniform
-from spectralib.filterbank import create_filterbank, dedisperse_filterbank, dedisperse_filterbank_to_timeseries
+from spectralib.filterbank import create_filterbank, dedisperse_filterbank, dedisperse_filterbank_to_timeseries, read_filterbank
 from spectralib.pulsar import generate_binary_pulsar
 
 
@@ -165,8 +165,6 @@ def main():
         'time_profile': time_profile,
         'freq_profile': freq_profile,
     }
-
-
 
     # Inject the binary pulsar signature
     data = generate_binary_pulsar(data, DM, metadata['tsamp'], metadata['foff'], metadata['fch1'], binary_params, **pulse_params)

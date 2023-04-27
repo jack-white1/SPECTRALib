@@ -1,6 +1,3 @@
-import sys
-sys.path.append("..")
-
 import numpy as np
 import unittest
 from spectralib.rfi import generate_rfi, add_wandering_baseline

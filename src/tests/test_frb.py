@@ -1,6 +1,3 @@
-import sys
-sys.path.append("..")
-
 import unittest
 import numpy as np
 from spectralib.frb import generate_pulse, calculate_dispersion_offsets
