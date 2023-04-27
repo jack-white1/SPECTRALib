@@ -142,7 +142,6 @@ def read_filterbank_header(file_path):
             totalbytes += nbytes
 
             if param_name == "HEADER_END":
-                totalbytes += nbytes
                 break
 
             if param_name in ["rawdatafile", "source_name"]:
