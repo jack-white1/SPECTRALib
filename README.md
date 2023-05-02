@@ -77,7 +77,7 @@ This function aspires to be a python version of the `fake` function in SIGPROC.
      - eccentricity (float): Eccentricity of the binary system, e.g. 0 for a circular orbit.
      - omega (float): Longitude of periastron in radians, e.g. 0.
  - **pulse_params: Additional pulse parameters to pass to the generate_pulse function. These include:
-     - pulse_start_index (int): The starting time sample index for the pulse. Default is 0.
+     - pulse_start_index (int): The start offset time sample index for the pulse. Delays pulse by number of bins provided. Default is 0.
      - pulse_duration (int): The duration of the pulse in time samples. Default is 100.
      - pulse_amplitude (int): The amplitude of the pulse. Default is 200.
      - time_profile (1D numpy array with length = pulse_duration): The time profile of the pulse. Default is None which will produce a top-hat pulse.
