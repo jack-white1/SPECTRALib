@@ -33,9 +33,9 @@ To test the library, download and run the examples by cloning this git repo.
 
  - `git clone https://github.com/jack-white1/SPECTRALib`
  - `cd SPECTRALib/examples`
- - `python example_rfi.py` or `python3 example_rfi.py`
- - `python example_frb.py` or `python3 example_frb.py`
- - `python example_pulsar.py` or `python3 example_pulsar.py`
+ - `python example_rfi_generator.py` or `python3 example_rfi_generator.py`
+ - `python example_frb_generator.py` or `python3 example_frb_generator.py`
+ - `python example_pulsar_generator.py` or `python3 example_pulsar_generator.py`
 
  # Documentation
  
@@ -45,12 +45,12 @@ Check `/examples/example_write_read_plot_filterbank.py` for a full example of ho
  ## RFI Functions
  The RFI modelling in spectralib is designed to be as modular and parametric as possible.
 
- Check `/examples/example_rfi.py` for a full example of how to use the RFI functions.
+ Check `/examples/example_rfi_generator.py` for a full example of how to use the RFI functions.
 
  ## FRB Functions
 To simulate the smearing seen at higher DMs and lower frequencies, there is an optional function to simulate FRBs at a higher resolution than the time and frequency quantization of the filterbank.
 
-Check `/examples/example_frb.py` for a full example of how to use the FRB functions.
+Check `/examples/example_frb_generator.py` for a full example of how to use the FRB functions.
 
  ## Pulsar Functions
  Conceptually, spectralib models either solitary or binary pulsars (with `generate_solitary_pulsar()` and `generate_binary_pulsar()`) as a series of pulses, using the same function (`generate_pulse()`) as is used to generate FRBs.
