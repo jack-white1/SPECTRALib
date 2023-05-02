@@ -61,7 +61,7 @@ Check `/examples/example_pulsar_generator.py` for a full example of how to use `
 
 Check `/examples/example_simple_binary_pulsar_generator.py` for a full example of how to use `generate_binary_pulsar()`.
 
-This function aspires to be a python version of the `fake` function in SIGPROC.
+This function aspires to be a python version of the `fake` function in SIGPROC (Lorimer).
  - data (2D numpy array): Input data array of shape (nchans, nsamp) where nchans is the number of frequency channels and nsamp is the number of time samples.
  - DM (float): Dispersion measure of the pulsar signal.
  - tsamp (float): Sampling time in seconds.
