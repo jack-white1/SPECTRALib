@@ -55,10 +55,13 @@ Check `/examples/example_frb.py` for a full example of how to use the FRB functi
  ## Pulsar Functions
  Conceptually, spectralib models either solitary or binary pulsars (with `generate_solitary_pulsar()` and `generate_binary_pulsar()`) as a series of pulses, using the same function (`generate_pulse()`) as is used to generate FRBs.
 
-Check `/examples/example_pulsar.py` for a full example of how to use the pulsar functions.
+Check `/examples/example_pulsar_generator.py` for a full example of how to use `generate_binary_pulsar()` to generate a semi-realistic filterbank.
 
 #### `generate_binary_pulsar(data, DM, tsamp, foff, fch1, binary_params, **pulse_params)`
-This function aims to be a python version of the `fake` function in SIGPROC.
+
+Check `/examples/example_simple_binary_pulsar_generator.py` for a full example of how to use `generate_binary_pulsar()`.
+
+This function aspires to be a python version of the `fake` function in SIGPROC.
  - data (2D numpy array): Input data array of shape (nchans, nsamp) where nchans is the number of frequency channels and nsamp is the number of time samples.
  - DM (float): Dispersion measure of the pulsar signal.
  - tsamp (float): Sampling time in seconds.
