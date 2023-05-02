@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import random
 
 from spectralib.rfi import generate_rfi, add_wandering_baseline, sampleloguniform
-from spectralib.filterbank import create_filterbank, dedisperse_filterbank, dedisperse_filterbank_to_timeseries, read_filterbank
+from spectralib.filterbank import create_filterbank, dedisperse_filterbank_data, dedisperse_filterbank_data_to_timeseries, read_filterbank
 from spectralib.pulsar import generate_binary_pulsar
 
 
@@ -174,8 +174,8 @@ def main():
     create_filterbank(data,output_filename, metadata)
 
     # Dedisperse the data
-    dedispersed_data = dedisperse_filterbank(data, DM, tsamp, foff, fch1)
-    dedispersed_timeseries = dedisperse_filterbank_to_timeseries(data, DM, tsamp, foff, fch1)
+    dedispersed_data = dedisperse_filterbank_data(data, DM, tsamp, foff, fch1)
+    dedispersed_timeseries = dedisperse_filterbank_data_to_timeseries(data, DM, tsamp, foff, fch1)
 
     # Create the figure and axes
     fig, axes = plt.subplots(4, 1, figsize=(10, 14), sharex=True)

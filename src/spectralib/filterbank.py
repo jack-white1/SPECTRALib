@@ -16,12 +16,12 @@ def plot_and_save(data, title, file_name):
     plt.savefig(file_name, dpi=300)  # Save as a high-quality PNG image
     plt.close(fig)  # Close the figure to free up memory
 
-def dedisperse_filterbank_to_timeseries(data, DM, tsamp, foff, fch1):
-    dedispersed_data = dedisperse_filterbank(data, DM, tsamp, foff, fch1)
+def dedisperse_filterbank_data_to_timeseries(data, DM, tsamp, foff, fch1):
+    dedispersed_data = dedisperse_filterbank_data(data, DM, tsamp, foff, fch1)
     timeseries = np.sum(dedispersed_data, axis=0)
     return timeseries
 
-def dedisperse_filterbank(data, DM, tsamp, foff, fch1):
+def dedisperse_filterbank_data(data, DM, tsamp, foff, fch1):
     nchans, nsamp = data.shape
     dedispersed_data = np.zeros_like(data)
     offsets = calculate_dispersion_offsets(DM, fch1, foff, nchans, tsamp)

@@ -5,6 +5,7 @@ src/spectralib/filterbank.py
 src/spectralib/frb.py
 src/spectralib/pulsar.py
 src/spectralib/rfi.py
+src/spectralib/search.py
 src/spectralib.egg-info/PKG-INFO
 src/spectralib.egg-info/SOURCES.txt
 src/spectralib.egg-info/dependency_links.txt

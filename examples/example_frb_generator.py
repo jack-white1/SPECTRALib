@@ -120,9 +120,7 @@ def main():
         }
         data = generate_rfi(data, **kwargs)
 
-
     # add an FRB
-
     data6 = data.copy()
 
     DM = 1000  # Dispersion measure of the FRB
@@ -175,8 +173,6 @@ def main():
     plt.ylabel("Frequency Channel")
     plt.tight_layout()
     plt.show()
-
-
 
 if __name__ == "__main__":
     main()
