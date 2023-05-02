@@ -40,7 +40,7 @@ To test the library, download and run the examples by cloning this git repo.
  # Documentation
  
  ## Filterbank Functions
-
+Check `/examples/example_write_read_plot_filterbank.py` for a full example of how to use the filterbank functions.
  
  ## RFI Functions
  The RFI modelling in spectralib is designed to be as modular and parametric as possible.
@@ -57,7 +57,7 @@ Check `/examples/example_frb.py` for a full example of how to use the FRB functi
 
 Check `/examples/example_pulsar.py` for a full example of how to use the pulsar functions.
 
-### `generate_binary_pulsar(data, DM, tsamp, foff, fch1, binary_params, **pulse_params)`
+#### `generate_binary_pulsar(data, DM, tsamp, foff, fch1, binary_params, **pulse_params)`
 This function aims to be a python version of the `fake` function in SIGPROC.
  - data (2D numpy array): Input data array of shape (nchans, nsamp) where nchans is the number of frequency channels and nsamp is the number of time samples.
  - DM (float): Dispersion measure of the pulsar signal.
