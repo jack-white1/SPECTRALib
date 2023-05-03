@@ -50,7 +50,7 @@ def create_filterbank(data,output_filename, metadata):
         
         # Write metadata key-value pairs
         for key, value in metadata.items():
-            print("Writing key: '", key, "' value: '", value, "' to file.")
+            #print("Writing key: '", key, "' value: '", value, "' to file.")
             # Encode and write the length of the metadata key
             f.write(struct.pack('<I', len(key)))
             # Encode and write the metadata key as bytes

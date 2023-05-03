@@ -1,3 +1,2 @@
 *.fil
 .vscode/settings.json
-src/spectralib/search.py
