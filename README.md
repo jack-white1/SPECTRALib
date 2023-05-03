@@ -1,6 +1,8 @@
 # Welcome to SPECTRALib!
 
-SPECTRALib is a 100% python library with minimal dependencies (`numpy` and `matplotlib`) for handling filterbank files and generating synthetic transients such as pulsars and FRBs, mixed with RFI and other effects. These functions are designed to be fully parametric, so you can generate a wide range of synthetic data.
+SPECTRALib is a 100% python library with minimal dependencies (`numpy` and `matplotlib`) for handling filterbank files and generating synthetic transients such as pulsars and FRBs, mixed with RFI and other effects. These functions are designed to be fully parametric, so you can generate a wide range of synthetic data, e.g. arbitrary pulse time and frequency profiles, arbitrary RFI time and frequency profiles.
+
+It can also simulate intra-channel smearing of pulses with an arbitrary time profile. This is useful for simulating FRBs at high DMs and low frequencies, where the smearing is significant.
 
 SPECTRALib stands for Synthetic Pulsar Emission, Contamination and Transients Radio Astronomy Library.
 

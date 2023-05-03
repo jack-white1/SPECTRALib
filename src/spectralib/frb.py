@@ -1,6 +1,6 @@
 import numpy as np
 
-def generate_high_res_frb(data, DM, tsamp, foff, fch1, freq_upsample_factor, **pulse_params):
+def generate_high_resolution_pulse(data, DM, tsamp, foff, fch1, freq_upsample_factor, **pulse_params):
     pulse_start_index = pulse_params.get('pulse_start_index', 0)
     pulse_duration = pulse_params.get('pulse_duration', 100)
     pulse_amplitude = pulse_params.get('pulse_amplitude', 200)
