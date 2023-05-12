@@ -143,7 +143,7 @@ def read_filterbank_header(file_path):
 
         while True:
             param_name, nbytes = get_string(file)
-            print("param_name: ", param_name, " nbytes: ", nbytes)
+            #print("param_name: ", param_name, " nbytes: ", nbytes)
             totalbytes += nbytes
 
             if param_name == "HEADER_END":
