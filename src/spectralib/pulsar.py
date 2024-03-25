@@ -44,18 +44,25 @@ def generate_binary_pulsar(data, DM, tsamp, foff, fch1, binary_params, **pulse_p
     offsets = calculate_dispersion_offsets(DM, fch1, foff, nchans, tsamp)
     start_index = -max(offsets)
 
-    pulse = 0
-    pulse_start_time = start_index*tsamp
-    while pulse_start_time < nsamp*tsamp:
-        pulse_start_time = start_index*tsamp + pulse * binary_params["rest_period"]
-        app_pulse_period = apparent_pulse_period(binary_params, pulse_start_time)
-        print("At time : ",pulse_start_time," apparent pulse period: ", app_pulse_period)
-        frb_start_time = pulse_start_time + app_pulse_period
-        pulse_start_index = int(frb_start_time / tsamp)
+    #pulse = 0
+    #pulse_start_time = start_index*tsamp
+    #while pulse_start_time < nsamp*tsamp:
+    #    pulse_start_time = start_index*tsamp + pulse * binary_params["rest_period"]
+    #    app_pulse_period = apparent_pulse_period(binary_params, pulse_start_time)
+    #    print("At time : ",pulse_start_time," apparent pulse period: ", app_pulse_period)
+    #    frb_start_time = pulse_start_time + app_pulse_period
+    #    pulse_start_index = int(frb_start_time / tsamp)
 
-        data = generate_pulse(data, DM, tsamp, foff, fch1, pulse_start_index=pulse_start_index, **pulse_params)
-        pulse+=1
-
+    #    data = generate_pulse(data, DM, tsamp, foff, fch1, pulse_start_index=pulse_start_index, **pulse_params)
+    #    pulse+=1
+        
+    t = start_index*tsamp
+    while t < nsamp*tsamp:
+        app_pulse_period = apparent_pulse_period(binary_params, t)
+        t_index = int(t / tsamp)
+        data = generate_pulse(data, DM, tsamp, foff, fch1, pulse_start_index=t_index, **pulse_params)
+        t += app_pulse_period
+        
     return data
 
 def generate_solitary_pulsar(data, DM, tsamp, foff, fch1, rest_period, **pulse_params):
@@ -73,7 +80,7 @@ def generate_solitary_pulsar(data, DM, tsamp, foff, fch1, rest_period, **pulse_p
         pulse_start_time = start_index*tsamp + pulse * rest_period
         pulse_start_index = int(pulse_start_time / tsamp)
 
-        data = generate_pulse(data, DM, tsamp, foff, fch1, pulse_start_index=pulse_start_index, pulse_duration=pulse_duration, **pulse_params)
+        data = generate_pulse(data, DM, tsamp, foff, fch1, pulse_start_index=pulse_start_index, **pulse_params)
         pulse+=1
 
     return data

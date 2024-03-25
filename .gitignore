@@ -1,3 +1,4 @@
 *.fil
 .vscode/settings.json
 src/spectralib/profiles.py
+examples/backups/*

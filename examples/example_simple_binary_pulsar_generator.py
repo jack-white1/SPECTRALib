@@ -8,8 +8,8 @@ from spectralib.pulsar import generate_binary_pulsar
 def main():
 
     # Initialise telescope metadata
-    tobs = 10 # observation time in seconds
-    tsamp = 0.001 # sample time in seconds
+    tobs = 600 # observation time in seconds
+    tsamp = 0.001310 # sample time in seconds
 
     metadata = {
     "source_name": "spectralib_FRB",
@@ -38,14 +38,14 @@ def main():
 
     print("Observation time of " + str(nsamp*tsamp) + " seconds")
 
-    DM = 2000  # Dispersion measure of the FRB
+    DM = 100  # Dispersion measure of the FRB
 
     # Binary pulsar parameters
     binary_params = {
-        "rest_period":  1.0,                 # Rest period of the pulsar (seconds)
-        "inclination": np.radians(45),  # Inclination angle of the binary system (radians)
-        "orbital_period": 7200,          # Orbital period of the binary system (seconds)
-        "start_phase": 0,               # Starting phase of the pulsar (radians)
+        "rest_period":  0.1,                 # Rest period of the pulsar (seconds)
+        "inclination": np.radians(90),  # Inclination angle of the binary system (radians)
+        "orbital_period": 1000,          # Orbital period of the binary system (seconds)
+        "start_phase": 0.3,               # Starting phase of the pulsar (radians)
         "companion_mass": 5,          # Mass of the companion (solar masses)
         "pulsar_mass": 1.4,             # Mass of the pulsar (solar masses)
         "eccentricity": 0.0,            # Eccentricity of the binary system
@@ -55,8 +55,8 @@ def main():
     
       # seconds
 
-    pulse_duration = 100  # Duration of the FRB
-    pulse_amplitude = 100  # Amplitude of the FRB
+    pulse_duration = 10  # Duration of the FRB in time bins
+    pulse_amplitude = 0.05  # Amplitude of the FRB
 
     freq_profile = np.ones(nchans)
     time_profile = np.ones(pulse_duration)
@@ -73,7 +73,7 @@ def main():
     data = generate_binary_pulsar(data, DM, metadata['tsamp'], metadata['foff'], metadata['fch1'], binary_params, **pulse_params)
 
     # Create the filterbank file
-    output_filename = "output_with_binary_pulsar.fil"
+    output_filename = "output_with_binary_pulsar_1310us_DM_100_amplitude_0.05_phase_0.3_inc_90_rest_period_0.1_bper_1000.fil"
     create_filterbank(data,output_filename, metadata)
 
     # Dedisperse the data
