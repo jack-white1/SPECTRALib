@@ -1,6 +1,0 @@
-README.md
-setup.py
-spectralib.egg-info/PKG-INFO
-spectralib.egg-info/SOURCES.txt
-spectralib.egg-info/dependency_links.txt
-spectralib.egg-info/top_level.txt

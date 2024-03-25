@@ -61,6 +61,7 @@ def generate_binary_pulsar(data, DM, tsamp, foff, fch1, binary_params, **pulse_p
         t_index = int(t / tsamp)
         data = generate_pulse(data, DM, tsamp, foff, fch1, pulse_start_index=t_index, **pulse_params)
         app_pulse_period = apparent_pulse_period(binary_params, t)
+        print("At time : ",t," apparent pulse period: ", app_pulse_period)
         t += app_pulse_period
         
     return data

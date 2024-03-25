@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="spectralib",
-    version="0.0.22",
+    version="0.0.23",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     classifiers=[
